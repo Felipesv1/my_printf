@@ -6,33 +6,28 @@
 /*   By: felperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 10:43:27 by felperei          #+#    #+#             */
-/*   Updated: 2023/10/31 10:58:07 by felperei         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:33:51 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../lib/ft_printf.h"
 
-int check_type_input(const char *input, void *arg)
+int check_type_input(const char *input, int i, va_list args)
 {
-	int	i;
-
-	i = 0;
-	if (*input == 'c')
-		i += print_char((int)arg);
-		else if (*input == 's')
-			i += print_string((char *)arg);
-		else if (*input == 'p')
-			i += print_pointer((unsigned long)arg, 87);
-		else if (*input == 'd')
-			i += print_int((int)arg);
-		else if (*input == 'i')
-			i += print_int((int)arg);
-		else if (*print == 'u')
-			i += print_unsigned((unsigned)arg);
-		else if (*input == 'x')
-			i += print_hex((unsigned int)arg, 87);
-		else if (*input == 'X')
-			i += print_hex((unsigned int)arg, 55);
-			return (i);
+	if (input[i + 1] == 'c')
+		 return (print_char(va_arg(args, int)));
+		else if (input[i + 1] == 's')
+			return (print_string(va_arg(args, char *)));
+		else if (input[i + 1] == 'd' || input[i + 1] == 'i')
+			return (print_int(va_arg(args, int)));
+		else if (input[i + 1] == 'u')
+			return (print_unsnbr(va_arg(args, unsigned int)));	
+		else if (input[i + 1] == 'p')
+			return (print_hex(va_arg(args, unsigned long), 'p') + 2);
+		else if (input[i + 1] == 'x' || input[i + 1] == 'X')
+			return (print_hex(va_arg(args, unsigned int), input[i + 1]));
+		else if (input[i + 1] == '%')
+			return (print_char('%'));
+		return (0);
 }
 

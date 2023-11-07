@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_pointer.c                                    :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: felperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 11:00:23 by felperei          #+#    #+#             */
-/*   Updated: 2023/10/31 15:21:29 by felperei         ###   ########.fr       */
+/*   Created: 2023/10/18 10:19:02 by felperei          #+#    #+#             */
+/*   Updated: 2023/10/23 14:54:34 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+#include "../lib/ft_printf.h"
 
-#include "ft_printf.h"
-
-int print_pointer(unsigned long value, int asc)
+char	*ft_strchr(const char *s, int c)
 {
-	char *ptr = (char *)value;
-	if (asc)
+	char	*ptr_s;
+
+	ptr_s = (char *)s;
+	while (*ptr_s != '\0')
 	{
-		while (*ptr)
+		if (*ptr_s == (unsigned char)c)
 		{
-			print_char(*ptr);
-			ptr++;
+			return (ptr_s);
 		}
+		ptr_s++;
 	}
+	if (c == 0)
+	{
+		return (ptr_s);
+	}
+	return (NULL);
 }

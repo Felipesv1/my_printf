@@ -6,11 +6,11 @@
 /*   By: felperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 13:55:30 by felperei          #+#    #+#             */
-/*   Updated: 2023/11/01 13:58:54 by felperei         ###   ########.fr       */
+/*   Updated: 2023/11/06 13:38:36 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../lib/ft_printf.h"
 
 int	print_unsnbr(unsigned int n)
 {
@@ -22,6 +22,6 @@ int	print_unsnbr(unsigned int n)
 
 	if (n >= 10)
 		print_unsnbr(n / 10);
-	count += print_char((n % 10) + '0');
+	count += print_char((n % 10) + 48);
 	return (count + sign);
 }

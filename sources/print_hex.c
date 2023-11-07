@@ -6,17 +6,18 @@
 /*   By: felperei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 10:59:22 by felperei          #+#    #+#             */
-/*   Updated: 2023/11/01 13:49:46 by felperei         ###   ########.fr       */
+/*   Updated: 2023/11/07 15:45:20 by felperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include "../libft/libft.h"
+#include "../lib/libft.h"
+#include "../lib/ft_printf.h"
 
-static void treating_argument_to_char(unsigned long num, int arg, int *count)
+
+static void	to_char(unsigned long num, int arg, int *count)
 {
-	char hex_digits_upper[] = "0123456789ABCDEF";
-	char hex_digits_lower[] = "0123456789abcdef";
+	const char *hex_digits_upper = "0123456789ABCDEF";
+	const char *hex_digits_lower = "0123456789abcdef";
 	char hex;
 
 	if (arg == 'X')
@@ -25,11 +26,11 @@ static void treating_argument_to_char(unsigned long num, int arg, int *count)
 			hex = hex_digits_lower[num % 16];
 	else if (arg == 'p')
 			hex = hex_digits_lower[num % 16];
-	write(1, &hex, 1);	
+	write(1, &hex, 1);
 	(*count)++;
 }
 
-static int if_argument_pointer (unsigned int value)
+static int if_argument_pointer(unsigned long value)
 {
 	if (value == 0)
 	{
@@ -38,33 +39,30 @@ static int if_argument_pointer (unsigned int value)
 	}
 	else 
 		return (0);
-
 }
 
 int print_hex(unsigned int value, int asc)
 {
-	char hex_str[16];
-	int	i;
-	int	count;
+	char 	hex_str[16];
+	int		i;
+	int		count;
 
 	count = 0;
 	if (value == 0)
 	{
 			if (asc == 'p')
 					return (if_argument_pointer(value));
-			treating_argument_to_char(value, asc, &count);
+			to_char(value, asc, &count);
 	}
 	if (asc == 'p' && value != 0)
 			print_string("0x");
-		i = 0;
-		while (value > 0)
-		{
-			hex_str[i++] = value % 16;
-			value /= 16;
-		}
-		while (i-- >= 0)
-			treating_argument_to_char(hex_str[i], asc, &count);
-		return (count);
-			return (0);
+	i = 0;
+	while (value > 0)
+	{
+		hex_str[i++] = value % 16;
+		value /= 16;
+	}
+	while (--i >= 0)
+			to_char(hex_str[i], asc, &count);
+	return (count);
 }
-

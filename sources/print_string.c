@@ -10,16 +10,21 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "ft_printf.h"
+#include "../lib/libft.h"
 
 int	print_string(char *str)
 {
 	int	i;
 	i = 0;
+	if (!str)
+	{
+		write(1, "(null)", 6);
+		return (6);
+	}
 	while (str[i] != '\0')
 	{
-		print_char(str[i]);
+		write(1, &str[i], 1);
 		i++;
 	}
-	return (1);
+	return (i);
 }
